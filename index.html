@@ -1,126 +1,150 @@
-index.html<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Memorial Digital</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      font-family: Georgia, serif;
-      margin: 0;
-      background: #f5f1ea;
-      color: #3b322c;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memorial Digital</title>
 
-    .hero {
-      min-height: 80vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 80px 20px;
-      background: linear-gradient(rgba(59,50,44,.45), rgba(59,50,44,.45)),
-      url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop') center/cover;
-      color: white;
-    }
+<style>
+body{
+    margin:0;
+    font-family: Georgia, serif;
+    background:#f6f2eb;
+    color:#3d352f;
+}
 
-    .hero h1 {
-      font-size: 48px;
-      margin-bottom: 16px;
-      font-weight: 400;
-    }
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:40px 20px;
+}
 
-    .hero p {
-      font-size: 20px;
-      margin-bottom: 30px;
-    }
+.hero{
+    text-align:center;
+    padding:80px 20px;
+    border-bottom:1px solid #e5ddd2;
+}
 
-    .btn {
-      display: inline-block;
-      padding: 14px 30px;
-      margin: 8px;
-      border-radius: 30px;
-      text-decoration: none;
-      background: #d6b98c;
-      color: #fff;
-      font-size: 16px;
-    }
+.hero h1{
+    font-size:52px;
+    font-weight:400;
+    margin-bottom:10px;
+}
 
-    .section {
-      max-width: 1100px;
-      margin: auto;
-      padding: 60px 20px;
-    }
+.hero p{
+    font-size:20px;
+    color:#6b6158;
+}
 
-    .card {
-      background: white;
-      border-radius: 20px;
-      padding: 40px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.08);
-      margin-bottom: 30px;
-    }
+.message{
+    text-align:center;
+    font-size:24px;
+    margin:50px 0;
+    line-height:1.8;
+}
 
-    input, textarea {
-      width: 100%;
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid #ddd;
-      font-size: 16px;
-      margin-bottom: 16px;
-    }
+.stats{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    margin:40px 0;
+    font-size:20px;
+}
 
-    .footer {
-      text-align: center;
-      padding: 40px;
-      color: #7a6e64;
-    }
-  </style>
+.buttons{
+    text-align:center;
+    margin:40px 0;
+}
+
+.btn{
+    display:inline-block;
+    padding:14px 28px;
+    margin:8px;
+    border-radius:30px;
+    text-decoration:none;
+    background:#cdb18c;
+    color:white;
+    font-size:16px;
+}
+
+.feed{
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+    margin-top:50px;
+}
+
+.feed h2{
+    text-align:center;
+    font-weight:400;
+}
+
+.item{
+    padding:20px 0;
+    border-bottom:1px solid #eee;
+}
+
+.footer{
+    text-align:center;
+    padding:40px;
+    color:#8a7f74;
+}
+</style>
 </head>
 <body>
 
-  <section class="hero">
-    <div>
-      <h1>Eternize quem você ama</h1>
-      <p>Acenda uma vela virtual e deixe sua homenagem.</p>
-      <a href="#pagamento" class="btn">Prestar homenagem</a>
+<div class="container">
+
+    <section class="hero">
+        <h1>Maria Aparecida Silva</h1>
+        <p>1948 — 2026</p>
+    </section>
+
+    <section class="message">
+        “Sempre em nossos corações.<br>
+        Sua memória viverá para sempre.”
+    </section>
+
+    <div class="stats">
+        <div>✨ 18 velas</div>
+        <div>💬 7 homenagens</div>
     </div>
-  </section>
 
-  <section class="section" id="pagamento">
-    <div class="card">
-      <h2 style="text-align:center;">Preste sua homenagem</h2>
-      <p style="text-align:center;">
-        Acenda uma vela virtual por <strong>R$ 0,99</strong>
-      </p>
-
-      <input type="text" placeholder="Seu nome">
-      <textarea rows="5" placeholder="Escreva sua mensagem"></textarea>
-
-      <div style="text-align:center;">
+    <div class="buttons">
         <a href="https://mpago.la/2dAt9LF" class="btn" target="_blank">
-          Acender vela por R$ 0,99
+            Acender vela por R$ 0,99
         </a>
 
-        <a href="https://wa.me/?text=Acendi%20uma%20vela%20de%20condolências"
-           class="btn"
-           target="_blank">
-          Compartilhar homenagem
+        <a href="#" class="btn">
+            Deixar homenagem
         </a>
-      </div>
     </div>
-  </section>
 
-  <section class="section" id="sucesso">
-    <div class="card" style="text-align:center;">
-      <h2>Vela acesa com sucesso ✨</h2>
-      <p>Sua vela de condolências foi acesa com carinho e respeito.</p>
-    </div>
-  </section>
+    <section class="feed">
+        <h2>Homenagens Recentes</h2>
 
-  <div class="footer">
-    Memorial Digital • Site pronto
-  </div>
+        <div class="item">
+            <strong>Guilherme</strong><br>
+            acendeu uma vela ✨
+        </div>
+
+        <div class="item">
+            <strong>Ana</strong><br>
+            “Saudades eternas”
+        </div>
+
+        <div class="item">
+            <strong>Marcos</strong><br>
+            acendeu uma vela ✨
+        </div>
+    </section>
+
+</div>
+
+<div class="footer">
+    Memorial Digital
+</div>
 
 </body>
 </html>
