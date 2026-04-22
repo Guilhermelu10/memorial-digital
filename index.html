@@ -22,6 +22,7 @@ body{
 .hero{
     text-align:center;
     padding:70px 20px 20px;
+    animation: fadeIn 1s ease;
 }
 
 .hero h1{
@@ -32,20 +33,18 @@ body{
 
 .hero p{
     color:#7a6e64;
-    font-size:16px;
-    margin-top:10px;
 }
 
 .sub{
-    text-align:center;
-    font-size:18px;
     margin-top:10px;
+    font-size:16px;
 }
 
 .frase{
     text-align:center;
     font-size:20px;
     margin:25px 0;
+    opacity:.9;
 }
 
 .stats{
@@ -64,11 +63,11 @@ body{
     color:#fff;
     border:none;
     cursor:pointer;
+    transition:.3s;
 }
 
-.form-homenagem{
-    text-align:center;
-    margin-top:30px;
+.btn:hover{
+    transform:scale(1.05);
 }
 
 input, textarea{
@@ -77,7 +76,6 @@ input, textarea{
     border-radius:10px;
     border:1px solid #ccc;
     margin-bottom:10px;
-    font-family: Georgia;
 }
 
 .feed{
@@ -85,23 +83,42 @@ input, textarea{
     border-radius:16px;
     padding:20px;
     margin-top:40px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.05);
 }
 
 .item{
     border-bottom:1px solid #eee;
-    padding:10px 0;
-    font-size:14px;
+    padding:12px 0;
+    opacity:0;
+    transform:translateY(10px);
+    animation: fadeUp .5s forwards;
 }
 
 .time{
-    color:#999;
     font-size:12px;
+    color:#999;
+}
+
+.success{
+    display:none;
+    text-align:center;
+    margin-top:20px;
+    color:green;
+    font-size:14px;
 }
 
 .footer{
     text-align:center;
     padding:40px;
     color:#8a7f74;
+}
+
+@keyframes fadeIn{
+from{opacity:0} to{opacity:1}
+}
+
+@keyframes fadeUp{
+to{opacity:1; transform:translateY(0)}
 }
 </style>
 </head>
@@ -119,35 +136,38 @@ Preste uma homenagem online e acenda uma vela virtual
 </div>
 
 <div class="frase">
-“Uma pequena luz pode representar um grande amor.”
+“Mantenha viva a memória de quem você ama.”
 </div>
 
 <div class="stats" id="contador">
-✨ 128 velas • 💬 34 homenagens
+✨ 132 velas • 💬 41 homenagens
 </div>
 
-<div class="form-homenagem">
+<div style="text-align:center;">
 
-<input id="nomePessoa" type="text" placeholder="Seu nome">
-
+<input id="nomePessoa" placeholder="Seu nome">
 <textarea id="mensagemPessoa" placeholder="Escreva sua homenagem"></textarea>
 
-<button onclick="publicarHomenagem()" class="btn">
+<button onclick="publicar()" class="btn">
 Publicar homenagem
 </button>
 
 <br>
 
 <a id="btnPagamento" class="btn" style="display:none;" target="_blank">
-Acender vela de homenagem ✨ (R$0,99)
+Acender uma vela de homenagem ✨ (R$0,99)
 </a>
 
 <a id="btnCompartilhar" class="btn" style="display:none;" target="_blank">
 Compartilhar com familiares
 </a>
 
-<p id="incentivo" style="display:none; font-size:14px;">
-Convide amigos e familiares para prestar uma homenagem também
+<div id="msgSucesso" class="success">
+Homenagem registrada com carinho ❤️
+</div>
+
+<p id="incentivo" style="display:none;">
+Convide amigos e familiares para prestar homenagem também
 </p>
 
 </div>
@@ -155,20 +175,9 @@ Convide amigos e familiares para prestar uma homenagem também
 <div class="feed" id="feed">
 <h3>Homenagens recentes</h3>
 
-<div class="item">
-<strong>João</strong> acendeu uma vela ✨
-<div class="time">há 2 minutos</div>
-</div>
-
-<div class="item">
-<strong>Ana</strong>: “Saudades eternas”
-<div class="time">agora</div>
-</div>
-
-<div class="item">
-<strong>Carlos</strong> acendeu uma vela ✨
-<div class="time">há 5 minutos</div>
-</div>
+<div class="item"><strong>Carlos Henrique</strong> acendeu uma vela ✨ <div class="time">há 2 minutos</div></div>
+<div class="item"><strong>Juliana Alves</strong>: “Saudades eternas” <div class="time">agora</div></div>
+<div class="item"><strong>Marcos Souza</strong> acendeu uma vela ✨ <div class="time">há 5 minutos</div></div>
 
 </div>
 
@@ -180,65 +189,63 @@ Memorial Digital
 
 <script>
 
-let totalVelas = 128;
-let totalMensagens = 34;
+let velas = 132;
+let msgs = 41;
 
-function atualizarContador(){
+function atualizar(){
 document.getElementById("contador").innerHTML =
-`✨ ${totalVelas} velas • 💬 ${totalMensagens} homenagens`;
+`✨ ${velas} velas • 💬 ${msgs} homenagens`;
 }
 
-function tempoAgora(){
-return "agora";
-}
+function publicar(){
 
-function publicarHomenagem(){
+let nome = document.getElementById("nomePessoa").value;
+let msg = document.getElementById("mensagemPessoa").value;
 
-const nome = document.getElementById("nomePessoa").value;
-const mensagem = document.getElementById("mensagemPessoa").value;
-
-if(!nome || !mensagem){
-alert("Preencha seu nome e a mensagem");
+if(!nome || !msg){
+alert("Preencha os campos");
 return;
 }
 
-// adiciona no feed
-const feed = document.getElementById("feed");
+// animação + adicionar no feed
+let feed = document.getElementById("feed");
 
-const novo = document.createElement("div");
+let novo = document.createElement("div");
 novo.className = "item";
-novo.innerHTML = `<strong>${nome}</strong>: "${mensagem}" 
-<div class="time">${tempoAgora()}</div>`;
+novo.innerHTML = `<strong>${nome}</strong>: "${msg}" <div class="time">agora</div>`;
 
 feed.prepend(novo);
 
-// atualiza números
-totalMensagens++;
-atualizarContador();
+// atualizar números
+msgs++;
+atualizar();
+
+// mostrar mensagem sucesso
+document.getElementById("msgSucesso").style.display = "block";
 
 // botão pagamento
-const btnPagamento = document.getElementById("btnPagamento");
-btnPagamento.style.display = "inline-block";
-btnPagamento.href = "https://mpago.la/2dAt9LF";
+let btnP = document.getElementById("btnPagamento");
+btnP.style.display = "inline-block";
+btnP.href = "https://mpago.la/2dAt9LF";
 
 // botão compartilhar
-const texto = `Eu, ${nome}, deixei uma homenagem:\n"${mensagem}"\n\nVeja aqui: ${window.location.href}`;
-const linkWhats = "https://wa.me/?text=" + encodeURIComponent(texto);
+let texto = `Eu, ${nome}, deixei uma homenagem:\n"${msg}"\n\nVeja: ${window.location.href}`;
+let link = "https://wa.me/?text=" + encodeURIComponent(texto);
 
-const btnCompartilhar = document.getElementById("btnCompartilhar");
-btnCompartilhar.style.display = "inline-block";
-btnCompartilhar.href = linkWhats;
+let btnW = document.getElementById("btnCompartilhar");
+btnW.style.display = "inline-block";
+btnW.href = link;
 
 // incentivo
 document.getElementById("incentivo").style.display = "block";
 
 }
 
-// simula movimento automático
-setInterval(() => {
-totalVelas++;
-atualizarContador();
-}, 15000);
+// simula crescimento
+setInterval(()=>{
+velas++;
+atualizar();
+}, 12000);
 
 </script>
 
