@@ -30,8 +30,7 @@ body{
 }
 
 .hero p{
-    font-size:18px;
-    margin-top:10px;
+    font-size:16px;
     color:#6f645c;
 }
 
@@ -41,7 +40,6 @@ body{
     margin:25px 0;
 }
 
-/* BOTÃO MELHORADO */
 .btn{
     display:inline-block;
     padding:14px 26px;
@@ -90,6 +88,14 @@ input, textarea{
     color:#999;
 }
 
+#sucessoBox{
+    display:none;
+    text-align:center;
+    margin-top:20px;
+    color:green;
+    font-size:15px;
+}
+
 .footer{
     text-align:center;
     padding:40px;
@@ -104,6 +110,10 @@ input, textarea{
 <div class="hero">
 <h1>Maria Aparecida Silva</h1>
 <p>1948 — 2026</p>
+
+<p style="max-width:500px; margin:10px auto;">
+Uma pessoa querida, lembrada por seu carinho, sua presença e os momentos que deixou em cada coração.
+</p>
 
 <p>
 Preste uma homenagem e mantenha viva a memória de quem você ama.
@@ -131,13 +141,16 @@ Mais de 300 pessoas já prestaram homenagem
 Publicar homenagem
 </button>
 
-<!-- URGÊNCIA -->
 <p style="font-size:13px; color:#999;">
-Disponível por tempo limitado
+Página ativa por tempo limitado
 </p>
 
 <p style="font-size:14px; color:#666;">
 Uma pequena contribuição para manter essa homenagem online
+</p>
+
+<p style="font-size:13px; color:#888;">
+Sua homenagem ficará visível para todos que visitarem esta página
 </p>
 
 <br>
@@ -150,44 +163,25 @@ Acender uma vela de homenagem ✨ (R$0,99)
 Compartilhar com familiares
 </a>
 
-<p id="incentivo" style="display:none; font-size:14px;">
+<p id="incentivo" style="display:none;">
 Convide familiares para prestar homenagem também 🙏
 </p>
+
+<div id="sucessoBox">
+Sua homenagem foi registrada com carinho ❤️
+</div>
 
 </div>
 
 <div class="feed" id="feed">
 <h3>Homenagens recentes</h3>
 
-<div class="item">
-<strong>Fernanda Lima</strong>: "Descanse em paz ❤️"
-<div class="time">agora</div>
-</div>
-
-<div class="item">
-<strong>Roberto Alves</strong> acendeu uma vela ✨
-<div class="time">há 1 minuto</div>
-</div>
-
-<div class="item">
-<strong>Carlos Henrique</strong>: "Sempre será lembrado"
-<div class="time">há 3 minutos</div>
-</div>
-
-<div class="item">
-<strong>Juliana Souza</strong> acendeu uma vela ✨
-<div class="time">há 5 minutos</div>
-</div>
-
-<div class="item">
-<strong>Marcos Oliveira</strong>: "Que Deus conforte a família"
-<div class="time">há 8 minutos</div>
-</div>
-
-<div class="item">
-<strong>Ana Paula</strong> acendeu uma vela ✨
-<div class="time">há 10 minutos</div>
-</div>
+<div class="item"><strong>Fernanda Lima</strong>: "Descanse em paz ❤️" <div class="time">agora</div></div>
+<div class="item"><strong>Roberto Alves</strong> acendeu uma vela ✨ <div class="time">há 1 minuto</div></div>
+<div class="item"><strong>Carlos Henrique</strong>: "Sempre será lembrado" <div class="time">há 3 minutos</div></div>
+<div class="item"><strong>Juliana Souza</strong> acendeu uma vela ✨ <div class="time">há 5 minutos</div></div>
+<div class="item"><strong>Marcos Oliveira</strong>: "Que Deus conforte a família" <div class="time">há 8 minutos</div></div>
+<div class="item"><strong>Ana Paula</strong> acendeu uma vela ✨ <div class="time">há 10 minutos</div></div>
 
 </div>
 
@@ -230,15 +224,15 @@ feed.prepend(novo);
 msgs++;
 atualizar();
 
-// ALERTA DE SUCESSO
-alert("Sua homenagem foi registrada com sucesso ❤️");
+// sucesso visual
+document.getElementById("sucessoBox").style.display = "block";
 
 // botão pagamento
 let btnP = document.getElementById("btnPagamento");
 btnP.style.display = "inline-block";
 btnP.href = "https://mpago.la/2dAt9LF";
 
-// TEXTO MELHOR WHATSAPP
+// whatsapp
 let texto = `Acabei de deixar uma homenagem emocionante ❤️
 
 "${msg}"
@@ -254,14 +248,14 @@ btnW.href = link;
 // incentivo
 document.getElementById("incentivo").style.display = "block";
 
-// SCROLL SUAVE
+// scroll
 window.scrollTo({ top: 0, behavior: 'smooth' });
 
 }
 
-// simula crescimento
+// crescimento realista
 setInterval(()=>{
-velas++;
+velas += Math.floor(Math.random() * 2) + 1;
 atualizar();
 }, 15000);
 
