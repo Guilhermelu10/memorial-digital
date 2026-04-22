@@ -19,10 +19,9 @@ body{
     padding:40px 20px;
 }
 
-/* TOPO */
 .hero{
     text-align:center;
-    padding:100px 20px 50px;
+    padding:80px 20px 30px;
 }
 
 .hero h1{
@@ -32,22 +31,18 @@ body{
 }
 
 .hero p{
-    font-size:18px;
     color:#7a6e64;
 }
 
-/* FRASE */
 .frase{
     text-align:center;
     font-size:20px;
-    margin:40px 0;
-    line-height:1.6;
+    margin:30px 0;
 }
 
-/* BOTÕES */
-.buttons{
+.stats{
     text-align:center;
-    margin:30px 0;
+    margin:20px 0;
 }
 
 .btn{
@@ -58,26 +53,33 @@ body{
     text-decoration:none;
     background:#d6b98c;
     color:#fff;
+    border:none;
 }
 
-/* CONTADOR */
-.stats{
+.form-homenagem{
     text-align:center;
-    margin:30px 0;
-    font-size:16px;
+    margin-top:30px;
 }
 
-/* FEED */
+input, textarea{
+    width:80%;
+    padding:12px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    margin-bottom:10px;
+    font-family: Georgia;
+}
+
 .feed{
-    background:white;
+    background:#fff;
     border-radius:16px;
     padding:20px;
     margin-top:40px;
 }
 
 .item{
-    padding:15px 0;
     border-bottom:1px solid #eee;
+    padding:10px 0;
 }
 
 .footer{
@@ -91,45 +93,90 @@ body{
 
 <div class="container">
 
-    <div class="hero">
-        <h1>Maria Aparecida Silva</h1>
-        <p>1948 — 2026</p>
-    </div>
+<div class="hero">
+<h1>Maria Aparecida Silva</h1>
+<p>1948 — 2026</p>
+</div>
 
-    <div class="frase">
-        “Sempre em nossos corações.<br>
-        Sua memória viverá para sempre.”
-    </div>
+<div class="frase">
+“Uma pequena luz pode representar um grande amor.”
+</div>
 
-    <div class="buttons">
-        <a href="https://mpago.la/2dAt9LF" class="btn" target="_blank">
-            Acender vela ✨ (R$0,99)
-        </a>
-    </div>
+<div class="stats">
+✨ 18 velas • 💬 7 homenagens
+</div>
 
-    <div class="stats">
-        ✨ 18 velas • 💬 7 homenagens
-    </div>
+<div class="form-homenagem">
 
-    <div class="feed">
-        <div class="item">
-            <strong>Guilherme</strong> acendeu uma vela ✨
-        </div>
+<input id="nomePessoa" type="text" placeholder="Seu nome">
 
-        <div class="item">
-            <strong>Ana:</strong> “Saudades eternas”
-        </div>
+<textarea id="mensagemPessoa" placeholder="Escreva sua homenagem"></textarea>
 
-        <div class="item">
-            <strong>Marcos</strong> acendeu uma vela ✨
-        </div>
-    </div>
+<button onclick="publicarHomenagem()" class="btn">
+Publicar homenagem
+</button>
+
+<br>
+
+<a id="btnPagamento" class="btn" style="display:none;" target="_blank">
+Acender vela ✨ (R$0,99)
+</a>
+
+<a id="btnCompartilhar" class="btn" style="display:none;" target="_blank">
+Compartilhar homenagem
+</a>
+
+</div>
+
+<div class="feed" id="feed">
+<h3>Homenagens recentes</h3>
+
+<div class="item">Guilherme acendeu uma vela ✨</div>
+<div class="item">Ana: “Saudades eternas”</div>
+
+</div>
 
 </div>
 
 <div class="footer">
 Memorial Digital
 </div>
+
+<script>
+function publicarHomenagem(){
+
+const nome = document.getElementById("nomePessoa").value;
+const mensagem = document.getElementById("mensagemPessoa").value;
+
+if(!nome || !mensagem){
+alert("Preencha seu nome e a mensagem");
+return;
+}
+
+// adiciona no feed
+const feed = document.getElementById("feed");
+
+const novo = document.createElement("div");
+novo.className = "item";
+novo.innerHTML = "<strong>" + nome + "</strong>: " + mensagem;
+
+feed.prepend(novo);
+
+// botão pagamento
+const btnPagamento = document.getElementById("btnPagamento");
+btnPagamento.style.display = "inline-block";
+btnPagamento.href = "https://mpago.la/2dAt9LF";
+
+// botão compartilhar
+const texto = `Eu, ${nome}, deixei uma homenagem:\n"${mensagem}"\n\nVeja aqui: ${window.location.href}`;
+const linkWhats = "https://wa.me/?text=" + encodeURIComponent(texto);
+
+const btnCompartilhar = document.getElementById("btnCompartilhar");
+btnCompartilhar.style.display = "inline-block";
+btnCompartilhar.href = linkWhats;
+
+}
+</script>
 
 </body>
 </html>
