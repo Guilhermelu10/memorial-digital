@@ -21,28 +21,37 @@ body{
 
 .hero{
     text-align:center;
-    padding:80px 20px 30px;
+    padding:70px 20px 20px;
 }
 
 .hero h1{
-    font-size:42px;
+    font-size:40px;
     font-weight:400;
     margin:0;
 }
 
 .hero p{
     color:#7a6e64;
+    font-size:16px;
+    margin-top:10px;
+}
+
+.sub{
+    text-align:center;
+    font-size:18px;
+    margin-top:10px;
 }
 
 .frase{
     text-align:center;
     font-size:20px;
-    margin:30px 0;
+    margin:25px 0;
 }
 
 .stats{
     text-align:center;
     margin:20px 0;
+    font-size:16px;
 }
 
 .btn{
@@ -54,6 +63,7 @@ body{
     background:#d6b98c;
     color:#fff;
     border:none;
+    cursor:pointer;
 }
 
 .form-homenagem{
@@ -80,6 +90,12 @@ input, textarea{
 .item{
     border-bottom:1px solid #eee;
     padding:10px 0;
+    font-size:14px;
+}
+
+.time{
+    color:#999;
+    font-size:12px;
 }
 
 .footer{
@@ -96,14 +112,18 @@ input, textarea{
 <div class="hero">
 <h1>Maria Aparecida Silva</h1>
 <p>1948 — 2026</p>
+
+<div class="sub">
+Preste uma homenagem online e acenda uma vela virtual
+</div>
 </div>
 
 <div class="frase">
 “Uma pequena luz pode representar um grande amor.”
 </div>
 
-<div class="stats">
-✨ 18 velas • 💬 7 homenagens
+<div class="stats" id="contador">
+✨ 128 velas • 💬 34 homenagens
 </div>
 
 <div class="form-homenagem">
@@ -119,20 +139,36 @@ Publicar homenagem
 <br>
 
 <a id="btnPagamento" class="btn" style="display:none;" target="_blank">
-Acender vela ✨ (R$0,99)
+Acender vela de homenagem ✨ (R$0,99)
 </a>
 
 <a id="btnCompartilhar" class="btn" style="display:none;" target="_blank">
-Compartilhar homenagem
+Compartilhar com familiares
 </a>
+
+<p id="incentivo" style="display:none; font-size:14px;">
+Convide amigos e familiares para prestar uma homenagem também
+</p>
 
 </div>
 
 <div class="feed" id="feed">
 <h3>Homenagens recentes</h3>
 
-<div class="item">Guilherme acendeu uma vela ✨</div>
-<div class="item">Ana: “Saudades eternas”</div>
+<div class="item">
+<strong>João</strong> acendeu uma vela ✨
+<div class="time">há 2 minutos</div>
+</div>
+
+<div class="item">
+<strong>Ana</strong>: “Saudades eternas”
+<div class="time">agora</div>
+</div>
+
+<div class="item">
+<strong>Carlos</strong> acendeu uma vela ✨
+<div class="time">há 5 minutos</div>
+</div>
 
 </div>
 
@@ -143,6 +179,19 @@ Memorial Digital
 </div>
 
 <script>
+
+let totalVelas = 128;
+let totalMensagens = 34;
+
+function atualizarContador(){
+document.getElementById("contador").innerHTML =
+`✨ ${totalVelas} velas • 💬 ${totalMensagens} homenagens`;
+}
+
+function tempoAgora(){
+return "agora";
+}
+
 function publicarHomenagem(){
 
 const nome = document.getElementById("nomePessoa").value;
@@ -158,9 +207,14 @@ const feed = document.getElementById("feed");
 
 const novo = document.createElement("div");
 novo.className = "item";
-novo.innerHTML = "<strong>" + nome + "</strong>: " + mensagem;
+novo.innerHTML = `<strong>${nome}</strong>: "${mensagem}" 
+<div class="time">${tempoAgora()}</div>`;
 
 feed.prepend(novo);
+
+// atualiza números
+totalMensagens++;
+atualizarContador();
 
 // botão pagamento
 const btnPagamento = document.getElementById("btnPagamento");
@@ -175,7 +229,17 @@ const btnCompartilhar = document.getElementById("btnCompartilhar");
 btnCompartilhar.style.display = "inline-block";
 btnCompartilhar.href = linkWhats;
 
+// incentivo
+document.getElementById("incentivo").style.display = "block";
+
 }
+
+// simula movimento automático
+setInterval(() => {
+totalVelas++;
+atualizarContador();
+}, 15000);
+
 </script>
 
 </body>
