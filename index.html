@@ -9,79 +9,74 @@
 body{
     margin:0;
     font-family: Georgia, serif;
-    background:#f6f2eb;
-    color:#3d352f;
+    background:#f5f1ea;
+    color:#3b322c;
 }
 
 .container{
-    max-width:900px;
+    max-width:700px;
     margin:auto;
     padding:40px 20px;
 }
 
+/* TOPO */
 .hero{
     text-align:center;
-    padding:80px 20px;
-    border-bottom:1px solid #e5ddd2;
+    padding:100px 20px 50px;
 }
 
 .hero h1{
-    font-size:52px;
+    font-size:42px;
     font-weight:400;
-    margin-bottom:10px;
+    margin:0;
 }
 
 .hero p{
-    font-size:20px;
-    color:#6b6158;
+    font-size:18px;
+    color:#7a6e64;
 }
 
-.message{
+/* FRASE */
+.frase{
     text-align:center;
-    font-size:24px;
-    margin:50px 0;
-    line-height:1.8;
-}
-
-.stats{
-    display:flex;
-    justify-content:center;
-    gap:40px;
-    margin:40px 0;
     font-size:20px;
+    margin:40px 0;
+    line-height:1.6;
 }
 
+/* BOTÕES */
 .buttons{
     text-align:center;
-    margin:40px 0;
+    margin:30px 0;
 }
 
 .btn{
     display:inline-block;
-    padding:14px 28px;
-    margin:8px;
+    padding:14px 26px;
+    margin:6px;
     border-radius:30px;
     text-decoration:none;
-    background:#cdb18c;
-    color:white;
+    background:#d6b98c;
+    color:#fff;
+}
+
+/* CONTADOR */
+.stats{
+    text-align:center;
+    margin:30px 0;
     font-size:16px;
 }
 
+/* FEED */
 .feed{
     background:white;
-    border-radius:20px;
-    padding:30px;
-    box-shadow:0 8px 20px rgba(0,0,0,.06);
-    margin-top:50px;
-}
-
-.feed h2{
-    text-align:center;
-    font-weight:400;
+    border-radius:16px;
+    padding:20px;
+    margin-top:40px;
 }
 
 .item{
-    padding:20px 0;
+    padding:15px 0;
     border-bottom:1px solid #eee;
 }
 
@@ -96,54 +91,44 @@ body{
 
 <div class="container">
 
-    <section class="hero">
+    <div class="hero">
         <h1>Maria Aparecida Silva</h1>
         <p>1948 — 2026</p>
-    </section>
+    </div>
 
-    <section class="message">
+    <div class="frase">
         “Sempre em nossos corações.<br>
         Sua memória viverá para sempre.”
-    </section>
-
-    <div class="stats">
-        <div>✨ 18 velas</div>
-        <div>💬 7 homenagens</div>
     </div>
 
     <div class="buttons">
         <a href="https://mpago.la/2dAt9LF" class="btn" target="_blank">
-            Acender vela por R$ 0,99
-        </a>
-
-        <a href="#" class="btn">
-            Deixar homenagem
+            Acender vela ✨ (R$0,99)
         </a>
     </div>
 
-    <section class="feed">
-        <h2>Homenagens Recentes</h2>
+    <div class="stats">
+        ✨ 18 velas • 💬 7 homenagens
+    </div>
 
+    <div class="feed">
         <div class="item">
-            <strong>Guilherme</strong><br>
-            acendeu uma vela ✨
+            <strong>Guilherme</strong> acendeu uma vela ✨
         </div>
 
         <div class="item">
-            <strong>Ana</strong><br>
-            “Saudades eternas”
+            <strong>Ana:</strong> “Saudades eternas”
         </div>
 
         <div class="item">
-            <strong>Marcos</strong><br>
-            acendeu uma vela ✨
+            <strong>Marcos</strong> acendeu uma vela ✨
         </div>
-    </section>
+    </div>
 
 </div>
 
 <div class="footer">
-    Memorial Digital
+Memorial Digital
 </div>
 
 </body>
