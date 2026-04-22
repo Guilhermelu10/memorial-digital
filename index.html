@@ -41,21 +41,23 @@ body{
     margin:25px 0;
 }
 
-.stats{
-    text-align:center;
-    margin:20px 0;
-    font-size:16px;
-}
-
+/* BOTÃO MELHORADO */
 .btn{
     display:inline-block;
     padding:14px 26px;
     margin:6px;
     border-radius:30px;
-    background:#d6b98c;
+    background:#c9a46b;
     color:#fff;
     border:none;
     cursor:pointer;
+    font-weight:bold;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:scale(1.05);
 }
 
 input, textarea{
@@ -64,6 +66,11 @@ input, textarea{
     border-radius:10px;
     border:1px solid #ccc;
     margin-bottom:10px;
+}
+
+.stats{
+    text-align:center;
+    margin:20px 0;
 }
 
 .feed{
@@ -123,6 +130,11 @@ Mais de 300 pessoas já prestaram homenagem
 <button onclick="publicar()" class="btn">
 Publicar homenagem
 </button>
+
+<!-- URGÊNCIA -->
+<p style="font-size:13px; color:#999;">
+Disponível por tempo limitado
+</p>
 
 <p style="font-size:14px; color:#666;">
 Uma pequena contribuição para manter essa homenagem online
@@ -218,13 +230,21 @@ feed.prepend(novo);
 msgs++;
 atualizar();
 
+// ALERTA DE SUCESSO
+alert("Sua homenagem foi registrada com sucesso ❤️");
+
 // botão pagamento
 let btnP = document.getElementById("btnPagamento");
 btnP.style.display = "inline-block";
 btnP.href = "https://mpago.la/2dAt9LF";
 
-// botão compartilhar
-let texto = `Eu, ${nome}, deixei uma homenagem:\n"${msg}"\n\nVeja: ${window.location.href}`;
+// TEXTO MELHOR WHATSAPP
+let texto = `Acabei de deixar uma homenagem emocionante ❤️
+
+"${msg}"
+
+Veja aqui: ${window.location.href}`;
+
 let link = "https://wa.me/?text=" + encodeURIComponent(texto);
 
 let btnW = document.getElementById("btnCompartilhar");
@@ -233,6 +253,9 @@ btnW.href = link;
 
 // incentivo
 document.getElementById("incentivo").style.display = "block";
+
+// SCROLL SUAVE
+window.scrollTo({ top: 0, behavior: 'smooth' });
 
 }
 
