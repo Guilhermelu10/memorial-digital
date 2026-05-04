@@ -52,6 +52,7 @@ body{
     font-weight:bold;
     box-shadow:0 4px 15px rgba(0,0,0,0.1);
     transition:0.3s;
+    text-decoration:none;
 }
 
 .btn:hover{
@@ -64,6 +65,7 @@ input, textarea{
     border-radius:10px;
     border:1px solid #ccc;
     margin-bottom:10px;
+    font-size:15px;
 }
 
 .stats{
@@ -175,14 +177,6 @@ Sua homenagem foi registrada com carinho ❤️
 
 <div class="feed" id="feed">
 <h3>Homenagens recentes</h3>
-
-<div class="item"><strong>Fernanda Lima</strong>: "Descanse em paz ❤️" <div class="time">agora</div></div>
-<div class="item"><strong>Roberto Alves</strong> acendeu uma vela ✨ <div class="time">há 1 minuto</div></div>
-<div class="item"><strong>Carlos Henrique</strong>: "Sempre será lembrado" <div class="time">há 3 minutos</div></div>
-<div class="item"><strong>Juliana Souza</strong> acendeu uma vela ✨ <div class="time">há 5 minutos</div></div>
-<div class="item"><strong>Marcos Oliveira</strong>: "Que Deus conforte a família" <div class="time">há 8 minutos</div></div>
-<div class="item"><strong>Ana Paula</strong> acendeu uma vela ✨ <div class="time">há 10 minutos</div></div>
-
 </div>
 
 </div>
@@ -193,71 +187,103 @@ Memorial Digital
 
 <script>
 
+const API_URL = "https://script.google.com/macros/s/AKfycbxg5ydKAyGW9aV0R8TbFXN2tbQP_t1T9qGu1Hll0ZxokUd8kLg83u9_RAHxv3VlWVvk/exec";
+
 let velas = 248;
 let msgs = 92;
 
 function atualizar(){
-document.getElementById("contador").innerHTML =
-`✨ ${velas} velas • 💬 ${msgs} homenagens`;
+    document.getElementById("contador").innerHTML =
+    `✨ ${velas} velas • 💬 ${msgs} homenagens`;
 }
 
-function publicar(){
+async function carregarHomenagens(){
 
-let nome = document.getElementById("nomePessoa").value;
-let msg = document.getElementById("mensagemPessoa").value;
+    try{
+        const resposta = await fetch(API_URL);
+        const dados = await resposta.json();
 
-if(!nome || !msg){
-alert("Preencha os campos");
-return;
+        const feed = document.getElementById("feed");
+
+        dados.reverse().forEach(item => {
+            let novo = document.createElement("div");
+            novo.className = "item";
+
+            novo.innerHTML = `
+                <strong>${item.nome}</strong>: "${item.mensagem}"
+                <div class="time">recentemente</div>
+            `;
+
+            feed.appendChild(novo);
+        });
+
+        msgs += dados.length;
+        atualizar();
+
+    }catch(error){
+        console.error("Erro ao carregar homenagens:", error);
+    }
 }
 
-// adiciona no feed
-let feed = document.getElementById("feed");
+async function publicar(){
 
-let novo = document.createElement("div");
-novo.className = "item";
-novo.innerHTML = `<strong>${nome}</strong>: "${msg}" <div class="time">agora</div>`;
+    let nome = document.getElementById("nomePessoa").value.trim();
+    let msg = document.getElementById("mensagemPessoa").value.trim();
 
-feed.prepend(novo);
+    if(!nome || !msg){
+        alert("Preencha os campos");
+        return;
+    }
 
-// atualiza números
-msgs++;
-atualizar();
+    try{
 
-// sucesso visual
-document.getElementById("sucessoBox").style.display = "block";
+        await fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify({
+                nome: nome,
+                mensagem: msg
+            })
+        });
 
-// botão pagamento
-let btnP = document.getElementById("btnPagamento");
-btnP.style.display = "inline-block";
-btnP.href = "https://mpago.la/2dAt9LF";
+        document.getElementById("sucessoBox").style.display = "block";
 
-// whatsapp
-let texto = `Acabei de deixar uma homenagem emocionante ❤️
+        let btnP = document.getElementById("btnPagamento");
+        btnP.style.display = "inline-block";
+        btnP.href = "https://mpago.la/2dAt9LF";
+
+        let texto = `Acabei de deixar uma homenagem emocionante ❤️
 
 "${msg}"
 
 Veja aqui: ${window.location.href}`;
 
-let link = "https://wa.me/?text=" + encodeURIComponent(texto);
+        let link = "https://wa.me/?text=" + encodeURIComponent(texto);
 
-let btnW = document.getElementById("btnCompartilhar");
-btnW.style.display = "inline-block";
-btnW.href = link;
+        let btnW = document.getElementById("btnCompartilhar");
+        btnW.style.display = "inline-block";
+        btnW.href = link;
 
-// incentivo
-document.getElementById("incentivo").style.display = "block";
+        document.getElementById("incentivo").style.display = "block";
 
-// scroll
-window.scrollTo({ top: 0, behavior: 'smooth' });
+        msgs++;
+        atualizar();
 
+        setTimeout(()=>{
+            location.reload();
+        }, 1500);
+
+    }catch(error){
+        console.error("Erro ao publicar:", error);
+        alert("Erro ao enviar homenagem");
+    }
 }
 
-// crescimento realista
 setInterval(()=>{
-velas += Math.floor(Math.random() * 2) + 1;
-atualizar();
+    velas += Math.floor(Math.random() * 2) + 1;
+    atualizar();
 }, 15000);
+
+carregarHomenagens();
 
 </script>
 
